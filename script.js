@@ -36,7 +36,17 @@ function operate(num1, operator, num2) {
     }
     return result
 }
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button => {
+    button.addEventListener("click", () => {
+        populateDisplay(button.id)
+    }) 
+}))
 
+function populateDisplay(id) {
+    let display = document.querySelector(".display");
+    display.textContent = display.textContent + id;
+}
 console.log(operate(8, "+", 4));
 console.log(operate(8, "-", 4));
 console.log(operate(8, "*", 4));

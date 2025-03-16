@@ -6,6 +6,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: lightgoldenrodyellow;
 
 }
 button {
@@ -41,7 +42,10 @@ button {
     border: solid black 4px;
     border-radius: 8;
 }
-
+.display {
+    align-items: right;
+    justify-content: right;
+}
 ul
 .rows {
     list-style-type: none;
