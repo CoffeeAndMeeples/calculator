@@ -1,5 +1,5 @@
 * {
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 body {
@@ -39,12 +39,14 @@ button {
     flex: 1;
     flex-shrink: none;
     background-color: grey;
-    border: solid black 4px;
+    border: solid black 2px;
     border-radius: 8;
+    margin-top: 4px;
 }
 .display {
     align-items: right;
     justify-content: right;
+
 }
 ul
 .rows {
@@ -57,8 +59,9 @@ ul
 }
 
 .rows {
-    background-color: maroon;
+    background-color: rgb(175, 55, 55);
     border: solid black 4px;
+    margin: 4px;
 }
 ul {
     list-style-type: none;
@@ -68,4 +71,6 @@ ul {
 li {
     display: flex;
     flex: 1 0 auto;
+    margin-right: 4px;
+    margin-left: 4px;
 }
