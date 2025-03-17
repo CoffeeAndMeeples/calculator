@@ -13,7 +13,7 @@ function clearGlobals() {
 }
 function add(num1, num2) {
     console.log(num1, num2)
-    let rounded = (Number(num1) + Number(num2)).toFixed(4)
+    let rounded = (Number(num1) + Number(num2)).toFixed(8)
     while (rounded.at(-1) == "0" || rounded.at(-1) == ".") {
         rounded = rounded.slice(0,-1);
     }
@@ -21,7 +21,7 @@ function add(num1, num2) {
 }
 
 function subtract(num1, num2) {
-    let rounded = (Number(num1) - Number(num2)).toFixed(4)
+    let rounded = (Number(num1) - Number(num2)).toFixed(8)
     while (rounded.at(-1) == "0" || rounded.at(-1) == ".") {
         rounded = rounded.slice(0,-1);
     }
@@ -29,7 +29,7 @@ function subtract(num1, num2) {
 }
 
 function multiply(num1, num2) {
-    let rounded = (Number(num1) * Number(num2)).toFixed(4)
+    let rounded = (Number(num1) * Number(num2)).toFixed(8)
     while (rounded.at(-1) == "0" || rounded.at(-1) == ".") {
         rounded = rounded.slice(0,-1);
     }
@@ -37,7 +37,7 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    let rounded = (Number(num1) / Number(num2)).toFixed(4)
+    let rounded = (Number(num1) / Number(num2)).toFixed(8)
     while (rounded.at(-1) == "0" || rounded.at(-1) == ".") {
         rounded = rounded.slice(0,-1);
     }
@@ -87,7 +87,30 @@ buttons.forEach((button => {
         })
     }
     else if (button.id == ".") {
-        return
+        button.addEventListener("click", () => {
+            
+            //if there's no decimal in the current number
+            if (!display.textContent.includes(".")) {
+                display.textContent = display.textContent + ".";
+                if (userOperator == "") {
+                    userNumber1 = display.textContent;
+                }
+                else {
+                    display.textContent = button.id;
+                    userNumber2 = display.textContent;
+                }
+            }
+            //there's a decimal, but it's before an operator
+            else if (userOperator != "") {
+                display.textContent = button.id;
+                userNumber2 = display.textContent; 
+
+            }
+            //if there is a decimal in the current number
+            else {
+                return
+        }
+        })
     }
     else if (button.id == "c") {
         button.addEventListener("click", () => {
@@ -108,7 +131,7 @@ buttons.forEach((button => {
                         userOperator = button.id;
                         display.textContent = display.textContent + " " + button.id;
                     }
-                    //2 numbers an operator are queued up: run the function, set the total to a new num1
+                    //2 numbers and operator are queued up: run the function, set the total to a new num1
                     //and set the operator to the button pushed
                     else if (userNumber1 != "" && userNumber2 != "") {
                         let finalResult = operate(userNumber1, userOperator, userNumber2);
