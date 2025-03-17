@@ -32,7 +32,7 @@ button {
     margin-top: 4px;
     margin-bottom: 4px;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     min-height: 20px;
 }
 #display {
@@ -73,4 +73,9 @@ li {
     flex: 1 0 auto;
     margin-right: 4px;
     margin-left: 4px;
+}
+.row2,
+.row3,
+.row1 {
+    justify-content: left;
 }
