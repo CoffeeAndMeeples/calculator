@@ -13,19 +13,35 @@ function clearGlobals() {
 }
 function add(num1, num2) {
     console.log(num1, num2)
-    return Number(num1) + Number(num2)
+    let rounded = (Number(num1) + Number(num2)).toFixed(4)
+    while (rounded.at(-1) == "0" || rounded.at(-1) == ".") {
+        rounded = rounded.slice(0,-1);
+    }
+    return rounded
 }
 
 function subtract(num1, num2) {
-    return parseInt(num1) - parseInt(num2)
+    let rounded = (Number(num1) - Number(num2)).toFixed(4)
+    while (rounded.at(-1) == "0" || rounded.at(-1) == ".") {
+        rounded = rounded.slice(0,-1);
+    }
+    return rounded
 }
 
 function multiply(num1, num2) {
-    return parseInt(num1) * parseInt(num2)
+    let rounded = (Number(num1) * Number(num2)).toFixed(4)
+    while (rounded.at(-1) == "0" || rounded.at(-1) == ".") {
+        rounded = rounded.slice(0,-1);
+    }
+    return rounded
 }
 
 function divide(num1, num2) {
-    return parseInt(num1) / parseInt(num2)
+    let rounded = (Number(num1) / Number(num2)).toFixed(4)
+    while (rounded.at(-1) == "0" || rounded.at(-1) == ".") {
+        rounded = rounded.slice(0,-1);
+    }
+    return rounded
 }
 
 function operate(num1, operator, num2) {
