@@ -1,17 +1,19 @@
 let userNumber1 = "";
 let userNumber2 = "";
 let userOperator = "";
-let finalResult;
+let finalResult = "";
 const display = document.querySelector(".display");
 
 function clearGlobals() {
     userNumber1 = "";
     userNumber2 = "";
     userOperator = "";
+    finalResult = "";
     return
 }
 function add(num1, num2) {
-    return parseInt(num1) + parseInt(num2)
+    console.log(num1, num2)
+    return Number(num1) + Number(num2)
 }
 
 function subtract(num1, num2) {
@@ -42,7 +44,7 @@ function operate(num1, operator, num2) {
             result = divide(num1, num2);
             break;
     }
-    //let display = document.querySelector(".display");
+    
     display.textContent = result;
     //reset global variables
     clearGlobals();
@@ -50,15 +52,20 @@ function operate(num1, operator, num2) {
     return result
 }
 const buttons = document.querySelectorAll("button");
+
+//Operator buttons with decision tree for each non-numeric button
 buttons.forEach((button => {
     if (button.id == "=") {
         button.addEventListener("click", () => {
             if (userNumber1 != "" && userOperator != "" && display.textContent != "") {
                 userNumber2 = display.textContent;
-                operate(userNumber1, userOperator, userNumber2);
+                finalResult = operate(userNumber1, userOperator, userNumber2);
+                userNumber1 = finalResult;
+                userNumber2 = "";
+                userOperator = "";
             }
             else {
-                //let display = document.querySelector(".display");
+                
                 display.textContent = "ERROR";
             }
         })
@@ -69,7 +76,7 @@ buttons.forEach((button => {
     else if (button.id == "c") {
         button.addEventListener("click", () => {
             clearGlobals();
-            //let display = document.querySelector(".display");
+            
             display.textContent = "";
 
         })
@@ -79,20 +86,30 @@ buttons.forEach((button => {
              button.id == "x" ||
              button.id == "/") {
                 button.addEventListener("click", () => {
-                    if (userNumber1 != "" && userNumber2 == ""){
+                    
+                    //there is a num1 but no num2 and no operator
+                    if (userNumber1 != "" && userNumber2 == "" && userOperator == ""){
                         userOperator = button.id;
-                        //let display = document.querySelector(".display");
-                        userNumber1 = display.textContent;
                         display.textContent = display.textContent + " " + button.id;
                     }
-                    else if (userNumber1 != "" && userNumber2 == "") {
-                        let newUserNumber1 = operate(userNumber1, userOperator, userNumber2);
-                        userNumber1 = newUserNumber1;
+                    //2 numbers an operator are queued up: run the function, set the total to a new num1
+                    //and set the operator to the button pushed
+                    else if (userNumber1 != "" && userNumber2 != "") {
+                        let finalResult = operate(userNumber1, userOperator, userNumber2);
+                        userNumber1 = finalResult;
                         userNumber2 = "";
                         userOperator = button.id;
+                
                     }
+                    //operators are pressed consecutively
+                    else if (userNumber1 != "" && userNumber2 == "" && userOperator != "") {
+                        userOperator = button.id;
+                        display.textContent = userNumber1 + " " + button.id;
+                    }
+                   
+                    //if the user punches an operator as first action after clear
                     else {
-                        //let display = document.querySelector(".display");
+                    
                         display.textContent = "ERROR"
                         clearGlobals();
                     }
@@ -105,17 +122,33 @@ buttons.forEach((button => {
 }    
 }))
 
+//scenarios if user enters a number
 function populateDisplay(id) {
-    //let display = document.querySelector(".display");
+    //There is an existing error-clear the error and start a new function
+    if (display.textContent == "ERROR") {
+        clearGlobals();
+        display.textContent = "";
+    }
+    
+    //starting the 2nd number
     if (userNumber1 != "" && userOperator != "" && userNumber2 == "") {
         display.textContent = id;
         userNumber2 = display.textContent;
     }
-    else if (userOperator == ""){
-    display.textContent = display.textContent + id;
-    userNumber1 = display.textContent;
+    //continuing the 2nd number
+    else if (userNumber1 != "" && userOperator != "" && userNumber2 != "") {
+        display.textContent = display.textContent + id;
+        userNumber2 = display.textContent;
     }
+    
+    //starting the 1st number
+    else if (userNumber1 == ""){
+    display.textContent = id;
+    userNumber1 = id;
+    }
+    //continuing the 1st number
     else {
         display.textContent = display.textContent + id;
+        userNumber1 = display.textContent;
     }
 }
